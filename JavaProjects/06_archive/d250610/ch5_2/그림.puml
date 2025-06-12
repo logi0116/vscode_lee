@@ -1,0 +1,51 @@
+@startuml
+package d250610.ch5_2 {
+    abstract class Animal_Ex1 {
+        # name : String
+        # age : int
+        + Animal_Ex1()
+        + Animal_Ex1(name : String)
+        + showInfo() : void
+        {abstract} # sound() : void
+    }
+
+    interface Moveable_Ex1 {
+        + move() : void
+    }
+
+    interface Outable_Ex1 {
+        + out() : void
+    }
+
+    class Dog_Ex1 extends Animal_Ex1 {
+        + Dog_Ex1()
+        + Dog_Ex1(name : String)
+        + showInfo() : void
+        # sound() : void
+    }
+
+    class Cat_Ex1 extends Animal_Ex1 implements Moveable_Ex1, Outable_Ex1 {
+        + Cat_Ex1()
+        + Cat_Ex1(name : String, favoriteFood : String)
+        + showInfo() : void
+        # sound() : void
+        + move() : void
+        + out() : void
+        + favoriteFood : String
+    }
+
+    class Fish_Ex1 extends Animal_Ex1 {
+        + Fish_Ex1()
+        + Fish_Ex1(name : String)
+        + showInfo() : void
+        # sound() : void
+    }
+}
+
+d250610.ch5_2.Dog_Ex1 --|> d250610.ch5_2.Animal_Ex1
+d250610.ch5_2.Cat_Ex1 --|> d250610.ch5_2.Animal_Ex1
+d250610.ch5_2.Fish_Ex1 --|> d250610.ch5_2.Animal_Ex1
+d250610.ch5_2.Cat_Ex1 ..|> d250610.ch5_2.Moveable_Ex1
+d250610.ch5_2.Cat_Ex1 ..|> d250610.ch5_2.Outable_Ex1
+
+@enduml

@@ -15,7 +15,7 @@ public class Exs_Main {
         Exs_doc.getTypeExam();
         System.out.println("----------------------------");
         // EX2-3
-        System.out.println("파이널 상수 이용한, 원면적 구하기 예제");
+        phone_number System.out.println("파이널 상수 이용한, 원면적 구하기 예제");
         // 반지름 5.0인 원의 면적 구하기
         String result = Exs.getCircleArea(5.0);
         System.out.println(result);

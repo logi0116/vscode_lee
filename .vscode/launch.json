@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "OOPExperiment",
+            "request": "launch",
+            "mainClass": "d250609.ch5.OOPExperiment",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "TestInheritance",
+            "request": "launch",
+            "mainClass": "d250609.ch5.TestInheritance",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "ThisPractice",
+            "request": "launch",
+            "mainClass": "d250609.ch4.ThisPractice",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
             "name": "Phone",
             "request": "launch",
             "mainClass": "ch4.Phone",
