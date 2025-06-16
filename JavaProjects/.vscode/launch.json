@@ -1,0 +1,182 @@
+{
+    // IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
+    // 기존 특성에 대한 설명을 보려면 가리킵니다.
+    // 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CharacterCreator",
+            "request": "launch",
+            "mainClass": "CharacterCreator",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "OOPExperiment",
+            "request": "launch",
+            "mainClass": "d250609.ch5.OOPExperiment",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "TestInheritance",
+            "request": "launch",
+            "mainClass": "d250609.ch5.TestInheritance",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "ThisPractice",
+            "request": "launch",
+            "mainClass": "d250609.ch4.ThisPractice",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "Phone",
+            "request": "launch",
+            "mainClass": "ch4.Phone",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "Lee_Array_Main",
+            "request": "launch",
+            "mainClass": "ch3.Lee_Array_Main",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "DebuggingPractice",
+            "request": "launch",
+            "mainClass": "DebuggingPractice",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "StepByStepCodeQuiz",
+            "request": "launch",
+            "mainClass": "StepByStepCodeQuiz",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "Hello1",
+            "request": "launch",
+            "mainClass": "ch1.Hello1",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "Hello4",
+            "request": "launch",
+            "mainClass": "ch1.Hello4",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "Exs_Main",
+            "request": "launch",
+            "mainClass": "ch2.Exs_Main",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "Hello0530",
+            "request": "launch",
+            "mainClass": "ch2.Hello0530",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "Introduce",
+            "request": "launch",
+            "mainClass": "ch2.Introduce",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "OperConditionTestMain",
+            "request": "launch",
+            "mainClass": "ch2.OperConditionTestMain",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "ScannerTest",
+            "request": "launch",
+            "mainClass": "ch2.ScannerTest",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "ScannerTest2",
+            "request": "launch",
+            "mainClass": "ch2.ScannerTest2",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "ScannerTest2Test",
+            "request": "launch",
+            "mainClass": "ch2.ScannerTest2Test",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "Exs_ch3_Main",
+            "request": "launch",
+            "mainClass": "ch3.Exs_ch3_Main",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "Lee_book_Main",
+            "request": "launch",
+            "mainClass": "ch3.Lee_book_Main",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "MainClass",
+            "request": "launch",
+            "mainClass": "user_mini_project.MainClass",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "MainClass_switch_case",
+            "request": "launch",
+            "mainClass": "user_mini_project.MainClass_switch_case",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "DateUtilMain",
+            "request": "launch",
+            "mainClass": "util.date.DateUtilMain",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "DateUtilMain_copy",
+            "request": "launch",
+            "mainClass": "util.date.DateUtilMain_copy",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
+            "name": "RandomUtilMain",
+            "request": "launch",
+            "mainClass": "util.random.RandomUtilMain",
+            "projectName": "java-501-vscode_c840fd90"
+        }
+    ]
+}
