@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CharacterCreator",
+            "request": "launch",
+            "mainClass": "CharacterCreator",
+            "projectName": "java-501-vscode_c840fd90"
+        },
+        {
+            "type": "java",
             "name": "OOPExperiment",
             "request": "launch",
             "mainClass": "d250609.ch5.OOPExperiment",
