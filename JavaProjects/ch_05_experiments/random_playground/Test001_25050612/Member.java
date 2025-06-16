@@ -1,3 +1,5 @@
+package ch_05_experiments.random_playground.Test001_25050612;
+
 public class Member {
     // 1-1. 필드 선언 (회원 정보)
     private String name;
@@ -59,7 +61,7 @@ public class Member {
 
     // 1-6. CSV 형식의 문자열을 Member 객체로 변환하는 정적(static) 메서드
     // 역할: 파일에서 "이름,이메일,비밀번호,가입일" 형식의 한 줄을 읽어와
-    //       새로운 Member 객체를 생성해 줍니다.
+    // 새로운 Member 객체를 생성해 줍니다.
     public static Member fromCSV(String csvLine) {
         String[] parts = csvLine.split(","); // 쉼표(,)를 기준으로 문자열을 분리
         if (parts.length == 4) { // 분리된 부분이 4개인지 확인 (이름, 이메일, 비밀번호, 가입일)

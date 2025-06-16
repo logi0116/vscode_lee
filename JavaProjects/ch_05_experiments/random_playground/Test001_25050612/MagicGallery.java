@@ -1,3 +1,5 @@
+package ch_05_experiments.random_playground.Test001_25050612;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.awt.event.*;
@@ -31,31 +33,31 @@ public class MagicGallery extends JFrame {
         imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(imageLabel, BorderLayout.CENTER);
 
-     // ...existing code...
+        // ...existing code...
 
-// ...existing code...
+        // ...existing code...
 
-// 네비게이션, 버튼 + 썸네일 패널을 하나의 southPanel에 담기
-JPanel southPanel = new JPanel();
-southPanel.setLayout(new BorderLayout());
+        // 네비게이션, 버튼 + 썸네일 패널을 하나의 southPanel에 담기
+        JPanel southPanel = new JPanel();
+        southPanel.setLayout(new BorderLayout());
 
-// 네비게이션 패널 (이전/다음 버튼)
-JPanel navPanel = new JPanel();
-JButton preBtn = new JButton("이전");
-JButton nextBtn = new JButton("다음");
-navPanel.add(preBtn);
-navPanel.add(nextBtn);
-southPanel.add(navPanel, BorderLayout.NORTH);
+        // 네비게이션 패널 (이전/다음 버튼)
+        JPanel navPanel = new JPanel();
+        JButton preBtn = new JButton("이전");
+        JButton nextBtn = new JButton("다음");
+        navPanel.add(preBtn);
+        navPanel.add(nextBtn);
+        southPanel.add(navPanel, BorderLayout.NORTH);
 
-// 썸네일 패널
-thumbnailPanel = new JPanel();
-thumbnailPanel.setLayout(new FlowLayout());
-southPanel.add(thumbnailPanel, BorderLayout.CENTER);
+        // 썸네일 패널
+        thumbnailPanel = new JPanel();
+        thumbnailPanel.setLayout(new FlowLayout());
+        southPanel.add(thumbnailPanel, BorderLayout.CENTER);
 
-// southPanel을 프레임의 SOUTH에 추가
-add(southPanel, BorderLayout.SOUTH);
+        // southPanel을 프레임의 SOUTH에 추가
+        add(southPanel, BorderLayout.SOUTH);
 
-// ...이후 코드는 동일...
+        // ...이후 코드는 동일...
 
         // 버튼 이벤트
         preBtn.addActionListener(e -> showImage(currentIndex - 1));
@@ -68,24 +70,26 @@ add(southPanel, BorderLayout.SOUTH);
         setVisible(true);
     }
 
-   private void showImage(int index) {
-    if (index < 0 || index >= images.size())
-        return;
-    currentIndex = index;
+    private void showImage(int index) {
+        if (index < 0 || index >= images.size())
+            return;
+        currentIndex = index;
 
-    // 라벨 크기에 맞게 이미지 리사이즈
-    ImageIcon originalIcon = images.get(currentIndex);
-    int labelWidth = imageLabel.getWidth();
-    int labelHeight = imageLabel.getHeight();
+        // 라벨 크기에 맞게 이미지 리사이즈
+        ImageIcon originalIcon = images.get(currentIndex);
+        int labelWidth = imageLabel.getWidth();
+        int labelHeight = imageLabel.getHeight();
 
-    // 라벨이 아직 화면에 표시되기 전이면 크기가 0일 수 있으니, 기본값 지정
-    if (labelWidth <= 0) labelWidth = 500;
-    if (labelHeight <= 0) labelHeight = 350;
+        // 라벨이 아직 화면에 표시되기 전이면 크기가 0일 수 있으니, 기본값 지정
+        if (labelWidth <= 0)
+            labelWidth = 500;
+        if (labelHeight <= 0)
+            labelHeight = 350;
 
-    Image scaledImage = originalIcon.getImage().getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
-    imageLabel.setIcon(new ImageIcon(scaledImage));
-    titleLabel.setText(titles.get(currentIndex));
-}
+        Image scaledImage = originalIcon.getImage().getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+        imageLabel.setIcon(new ImageIcon(scaledImage));
+        titleLabel.setText(titles.get(currentIndex));
+    }
 
     private void loadThumbnails() {
         thumbnailPanel.removeAll();
@@ -114,7 +118,7 @@ add(southPanel, BorderLayout.SOUTH);
         imageList.add(new ImageIcon("test (1).jpg"));
         imageList.add(new ImageIcon("test (2).jpg"));
         imageList.add(new ImageIcon("test (3).jpg"));
-                imageList.add(new ImageIcon("test (4).jpg"));
+        imageList.add(new ImageIcon("test (4).jpg"));
         titleList.add("첫 번째 이미지");
         titleList.add("두 번째 이미지");
         titleList.add("세 번째 이미지");

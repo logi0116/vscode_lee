@@ -1,6 +1,8 @@
 {
-  //프로젝트 루트 기준 lib/*.jar 모두 참조
+  // 프로젝트 루트 기준 lib/*.jar 모두 참조
   "java.project.referencedLibraries": [
-    "lib/**/*.jar" // lib 폴더 하위에 모든 폴더 및 (jar인)파일을 참조하겠다.
-  ]
+    "lib/**/*.jar" // lib 폴더 하위에 모든 폴더 및 .jar파일을 참조하겠다.
+  ],
+
+  "notebook.defaultFormatter": "esbenp.prettier-vscode"
 }
