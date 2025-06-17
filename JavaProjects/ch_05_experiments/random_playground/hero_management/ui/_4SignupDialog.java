@@ -1,15 +1,8 @@
-package ch_05_experiments.random_playground.Hero_management.ui;
+package ch_05_experiments.random_playground.hero_management.ui;
 
-import java.awt.GridLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
-import ch_05_experiments.random_playground.Hero_management.dto._10Member;
+import ch_05_experiments.random_playground.hero_management.dto._10Member;
+import javax.swing.*;
+import java.awt.*;
 
 public class _4SignupDialog extends JDialog {
     private JTextField nameField, emailField, gradeField, huntField;

@@ -1,4 +1,4 @@
-package ch_05_experiments.random_playground.Hero_management.ui;
+package ch_05_experiments.random_playground.hero_management.ui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +18,7 @@ public class _2IntroFrame extends JFrame {
             dispose();
             new _3MainFrame();
         });
-        timer.setRepeats(false); // ★ 한 번만 실행되도록 설정
+        timer.setRepeats(false);
         timer.start();
     }
 }

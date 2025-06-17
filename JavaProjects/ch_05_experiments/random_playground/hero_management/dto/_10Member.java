@@ -1,4 +1,4 @@
-package ch_05_experiments.random_playground.Hero_management.dto;
+package ch_05_experiments.random_playground.hero_management.dto;
 
 public class _10Member {
     private int id;
@@ -6,8 +6,8 @@ public class _10Member {
     private String email;
     private String password;
     private String regDate;
-    private int huntCount; // 이달의 실적(몬스터 처치 횟수)
-    private String grade; // 등급
+    private int huntCount;
+    private String grade;
 
     public _10Member(int id, String name, String email, String password, String regDate, int huntCount, String grade) {
         this.id = id;
@@ -76,8 +76,7 @@ public class _10Member {
         this.grade = grade;
     }
 
-    @Override
-    public String toString() {
+    public String toCSV() {
         return id + "," + name + "," + email + "," + password + "," + regDate + "," + huntCount + "," + grade;
     }
 }

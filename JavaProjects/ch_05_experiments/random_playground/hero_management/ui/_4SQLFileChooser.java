@@ -1,4 +1,4 @@
-package ch_05_experiments.random_playground.Hero_management.ui;
+package ch_05_experiments.random_playground.hero_management.ui;
 
 import java.io.File;
 
@@ -6,9 +6,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 public class _4SQLFileChooser {
-    public static String chooseSQLFile(JFrame parent) {
+    public static String chooseCSVFile(JFrame parent) {
         JFileChooser chooser = new JFileChooser();
-        chooser.setDialogTitle("SQL/CSV 파일 선택");
+        chooser.setDialogTitle("CSV 파일 선택");
         int result = chooser.showOpenDialog(parent);
         if (result == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();

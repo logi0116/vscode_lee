@@ -1,4 +1,4 @@
-package hero_management.ui;
+package ch_05_experiments.random_playground.hero_management.ui;
 
 import javax.swing.*;
 import java.awt.*;

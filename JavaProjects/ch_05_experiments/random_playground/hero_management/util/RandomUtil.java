@@ -1,7 +1,6 @@
-package ch_05_experiments.random_playground.Hero_management.util;
+package ch_05_experiments.random_playground.hero_management.util;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class RandomUtil {
     public static int weightedRandomPick(List<Integer> weights) {

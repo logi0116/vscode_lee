@@ -1,15 +1,24 @@
-package ch_05_experiments.random_playground.Hero_management.service;
+package ch_05_experiments.random_playground.hero_management.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import ch_05_experiments.random_playground.Hero_management.dao._9DAO_Interface;
-import ch_05_experiments.random_playground.Hero_management.dao._N1OracleMemberDAOImpl;
-import ch_05_experiments.random_playground.Hero_management.dto._10Member;
-import ch_05_experiments.random_playground.Hero_management.util.RandomUtil;
+import ch_05_experiments.random_playground.hero_management.dao._9DAO_Interface;
+import ch_05_experiments.random_playground.hero_management.dao._N1OracleMemberDAOImpl;
+import ch_05_experiments.random_playground.hero_management.dto._10Member;
+import ch_05_experiments.random_playground.hero_management.util.RandomUtil;
+import java.util.*;
+import java.io.*;
 
 public class _5MemberService {
     private _9DAO_Interface dao = new _N1OracleMemberDAOImpl();
+    private static final String FILE_NAME = "members.txt";
+
+    public void addMemberDB(_10Member m) {
+        dao.insert(m); // 메모리/리스트에 추가
+        saveToFile(); // 파일에 저장
+    }
+
+    public void loadMembersFromDB() {
+        loadFromFile(); // 파일에서 읽어와 리스트 갱신
+    }
 
     public List<_10Member> getAllMembers() {
         return dao.findAll();
@@ -32,9 +41,8 @@ public class _5MemberService {
     }
 
     public void addDummyData() {
-        dao.insert(new _10Member(0, "동길홍", "hong@hero.com", "1234", "2025-06-17", 10, "A"));
-        dao.insert(new _10Member(0, "신순리", "lee@hero.com", "5678", "2025-06-17", 20, "S"));
-        dao.insert(new _10Member(0, "웅영김", "kim@hero.com", "9999", "2025-06-17", 5, "B"));
+        dao.insert(new _10Member(0, "홍길동", "hong@hero.com", "1234", "2025-06-17", 10, "A"));
+        dao.insert(new _10Member(0, "이순신", "lee@hero.com", "5678", "2025-06-17", 20, "S"));
     }
 
     public _10Member pickHunterOfTheMonth() {
@@ -48,8 +56,46 @@ public class _5MemberService {
         return list.get(idx);
     }
 
-    public void loadFromSQLFile(String filePath) {
-        dao.loadFromSQLFile(filePath);
+    public void loadFromCSVFile(String filePath) {
+        dao.loadFromCSVFile(filePath);
+    }
+
+    public void saveToFile() {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(FILE_NAME), "UTF-8"))) {
+            for (_10Member m : dao.findAll()) {
+                bw.write(m.toCSV());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("[Service] 파일 저장 오류: " + e.getMessage());
+        }
+    }
+
+    public void loadFromFile() {
+        File file = new File(FILE_NAME);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+            }
+        }
+        dao.clearAll(); // 리스트 비우기
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(FILE_NAME), "UTF-8"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty())
+                    continue;
+                String[] arr = line.split(",", -1);
+                if (arr.length >= 7) {
+                    _10Member m = new _10Member(
+                            Integer.parseInt(arr[0]), arr[1], arr[2], arr[3], arr[4],
+                            Integer.parseInt(arr[5]), arr[6]);
+                    dao.insert(m);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("[Service] 파일 읽기 오류: " + e.getMessage());
+        }
     }
 }
 

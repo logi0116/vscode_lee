@@ -1,0 +1,128 @@
+@startuml
+'========================================================
+'                  강호 무림맹 시스템 설계도
+'                  (Class Diagram 재해석 PlantUML 버전)
+'========================================================
+
+' 패키지 정의 (namespace와 유사)
+package "강호무림맹" {
+    class 무림맹주 {
+        + {static} 대장정시작(강호명령: String[])
+    }
+}
+
+package "강호무림맹.사대세가" as ui {
+    class 정파문_2조인프레임 {
+    }
+
+    class 정파문_3메인프레임 {
+    }
+
+    class 정파문_4사인업프레임 {
+        총괄집사: 모험가관리담당
+        --
+        + 정파문_4사인업프레임(집사: 모험가관리담당)
+        + 모험가등록신청(): void
+    }
+
+    class 비밀문파_4사인업다이얼로그 {
+    }
+
+    class 비급선택꾼_4SQL파일초이스 {
+    }
+}
+
+package "강호무림맹.각문파총괄집사" as service {
+    class 모험가관리담당 {
+        비급관리자: 무림비급관리자계약
+        --
+        + 모험가관리담당(관리자: 무림비급관리자계약)
+        + 모험가정보등록하라(강호인: 강호인기록): boolean
+        + 모험가정보전부불러오라(): List<강호인기록>
+        + 모험가목록갱신하라(): void
+        + 모험가정보불러오라(ID: String): 강호인기록
+        + 모험가정보삭제하라(ID: String): boolean
+        + 허수아비모험가추가하라(수: int): void
+        + CSV에서_정보불러오라(경로: String): void
+        + 파일에_정보저장하라(경로: String): void
+        + 파일에서_정보불러오라(경로: String): void
+    }
+}
+
+package "강호무림맹.데이터저장소" as dto {
+    class 강호인기록 {
+        고유_ID: String
+        이름: String
+        이메일: String
+        비번: String
+        가입일: String
+        --
+        + 강호인기록(고유_ID: String, 이름: String, 이메일: String, 비번: String, 가입일: String)
+        + 고유ID를_알아내라(): String
+        + 이름을_알아내라(): String
+        + 이메일을_알아내라(): String
+        + 비번을_알아내라(): String
+        + 가입일을_알아내라(): String
+        + 등급을_알아내라(): String
+        + 사냥횟수를_알아내라(): int
+        + CSV형태로_변환하라(): String
+    }
+}
+
+package "강호무림맹.도사들의지혜" as util {
+    class 확률도사 {
+        + {static} 무작위선택하라(가중치목록: List<Integer>): String
+    }
+
+    class 시간도사 {
+        + {static} 현재시간날짜를_알아내라(): String
+    }
+
+    class 전령사 {
+        + {static} 정보전달하라(메시지: String): void
+        + {static} 오류전달하라(메시지: String): void
+    }
+
+    class 전문연결담당마법사 {
+        + {static} 연결통로를_가져오라(): Connection
+        + {static} 자원을_반납하라(통로: Connection, 주문서: PreparedStatement, 목록: ResultSet): void
+    }
+}
+
+package "강호무림맹.비급보관소관리" as dao {
+    interface 무림비급관리자계약 {
+        + 모든기록찾아오라(): List<강호인기록>
+        + 기록저장하라(강호인: 강호인기록): boolean
+        + 기록수정하라(강호인: 강호인기록): boolean
+        + 기록삭제하라(강호인ID: String): boolean
+        + 모든기록삭제하라(): boolean
+        + CSV파일에서_기록불러오라(경로: String): void
+        + 파일에_기록저장하라(경로: String): void
+    }
+
+    class 오라클비급관리자문파 implements 무림비급관리자계약 {
+        + 모든기록찾아오라(): List<강호인기록>
+        + 기록저장하라(강호인: 강호인기록): boolean
+        + 기록수정하라(강호인: 강호인기록): boolean
+        + 기록삭제하라(강호인ID: String): boolean
+        + 모든기록삭제하라(): boolean
+        + CSV파일에서_기록불러오라(경로: String): void
+        + 파일에_기록저장하라(경로: String): void
+    }
+}
+
+'========================================================
+'                  클래스 간의 관계 (RelationShips)
+'========================================================
+
+' 의존 관계 (Dependency)
+무림맹주 ..> ui.정파문_2조인프레임 : <<시작 지시>>
+
+' 의존 관계
+ui.정파문_2조인프레임 ..> ui.정파문_3메인프레임
+ui.정파문_2조인프레임 ..> ui.정파문_4사인업프레임
+
+' 집약 관계 (Aggregation) - UI가 Service를 '참조'하지만, Service가 UI의 생명주기에 종속적이지 않음
+ui.정파문_4사인업프레임 o-- 모험가관리담당 : 총괄집사
+
+' 의존 관계 - Service가 DTO를 사용

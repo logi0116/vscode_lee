@@ -1,22 +1,13 @@
-package ch_05_experiments.random_playground.Hero_management.ui;
+package ch_05_experiments.random_playground.hero_management.ui;
 
-import java.awt.BorderLayout;
-import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import ch_05_experiments.random_playground.hero_management.service._5MemberService;
+import ch_05_experiments.random_playground.hero_management.dto._10Member;
+import ch_05_experiments.random_playground.hero_management.util.DateUtil;
+import ch_05_experiments.random_playground.hero_management.util.MessageUtil;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
-import ch_05_experiments.random_playground.Hero_management.dto._10Member;
-import ch_05_experiments.random_playground.Hero_management.service._5MemberService;
-import ch_05_experiments.random_playground.Hero_management.util.MessageUtil;
-import ch_05_experiments.random_playground.Hero_management.util.DateUtil;
+import java.awt.*;
+import java.util.List;
 
 public class _4SignupFrame extends JFrame {
     private _5MemberService service = new _5MemberService();
@@ -56,14 +47,14 @@ public class _4SignupFrame extends JFrame {
         JButton refreshBtn = new JButton("새로고침");
         JButton dummyBtn = new JButton("더미데이터 추가");
         JButton hunterBtn = new JButton("이달의 헌터 추첨");
-        JButton sqlBtn = new JButton("SQL파일선택");
+        JButton csvBtn = new JButton("CSV파일선택");
         btnPanel.add(addBtn);
         btnPanel.add(updateBtn);
         btnPanel.add(deleteBtn);
         btnPanel.add(refreshBtn);
         btnPanel.add(dummyBtn);
         btnPanel.add(hunterBtn);
-        btnPanel.add(sqlBtn);
+        btnPanel.add(csvBtn);
 
         add(topPanel, BorderLayout.NORTH);
         add(new JScrollPane(table), BorderLayout.CENTER);
@@ -77,7 +68,18 @@ public class _4SignupFrame extends JFrame {
             refreshTable();
         });
         refreshBtn.addActionListener(e -> refreshTable());
-        addBtn.addActionListener(e -> addMember());
+        // ...existing code...
+        addBtn.addActionListener(e -> {
+            _4SignupDialog dialog = new _4SignupDialog(this, null);
+            dialog.setVisible(true);
+            if (dialog.isConfirmed()) {
+                _10Member member = dialog.getMember(0, DateUtil.getCurrentDateTime());
+                service.addMemberDB(member); // 2. DB에 추가 및 파일 저장
+                service.loadMembersFromDB(); // 3. 파일에서 다시 로드
+                refreshTable(); // 4. 테이블 갱신
+            }
+        });
+        // ...existing code...
         updateBtn.addActionListener(e -> updateMember());
         deleteBtn.addActionListener(e -> deleteMember());
         dummyBtn.addActionListener(e -> {
@@ -85,10 +87,10 @@ public class _4SignupFrame extends JFrame {
             refreshTable();
         });
         hunterBtn.addActionListener(e -> pickHunter());
-        sqlBtn.addActionListener(e -> {
-            String path = ch_05_experiments.random_playground.Hero_management.ui._4SQLFileChooser.chooseSQLFile(this);
+        csvBtn.addActionListener(e -> {
+            String path = _4SQLFileChooser.chooseCSVFile(this);
             if (path != null) {
-                service.loadFromSQLFile(path);
+                service.loadFromCSVFile(path);
                 refreshTable();
             }
         });
@@ -96,15 +98,15 @@ public class _4SignupFrame extends JFrame {
         setVisible(true);
     }
 
-    private void refreshTable() {
-        tableModel.setRowCount(0);
-        for (_10Member m : service.getAllMembers()) {
-            tableModel.addRow(new Object[] {
-                    m.getId(), m.getName(), m.getEmail(), m.getPassword(),
-                    m.getRegDate(), m.getHuntCount(), m.getGrade()
-            });
-        }
+  private void refreshTable() {
+    tableModel.setRowCount(0);
+    for (_10Member m : service.getAllMembers()) {
+        tableModel.addRow(new Object[]{
+            m.getId(), m.getName(), m.getEmail(), m.getPassword(),
+            m.getRegDate(), m.getHuntCount(), m.getGrade()
+        });
     }
+}
 
     private void search() {
         String keyword = searchField.getText();

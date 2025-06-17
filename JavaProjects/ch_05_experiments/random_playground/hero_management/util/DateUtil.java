@@ -1,4 +1,4 @@
-package ch_05_experiments.random_playground.Hero_management.util;
+package ch_05_experiments.random_playground.hero_management.util;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,9 +1,8 @@
-package ch_05_experiments.random_playground.Hero_management.dao;
+package ch_05_experiments.random_playground.hero_management.dao;
 
-import ch_05_experiments.random_playground.Hero_management.dto._10Member;
+import ch_05_experiments.random_playground.hero_management.dto._10Member;
 import java.util.*;
 import java.io.*;
-import javax.swing.*;
 
 public class _N1OracleMemberDAOImpl implements _9DAO_Interface {
     private List<_10Member> memberList = new ArrayList<>();
@@ -60,27 +59,46 @@ public class _N1OracleMemberDAOImpl implements _9DAO_Interface {
     }
 
     @Override
-    public void loadFromSQLFile(String filePath) {
-        // 예시: CSV 파일에서 회원 데이터 읽기
+    public void loadFromCSVFile(String filePath) {
         if (filePath == null)
             return;
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"))) {
+            String headerLine = br.readLine();
+            if (headerLine == null)
+                return;
+            String[] headers = headerLine.split(",");
+            Map<String, Integer> colIdx = new HashMap<>();
+            for (int i = 0; i < headers.length; i++)
+                colIdx.put(headers[i].trim().toLowerCase(), i);
+
             memberList.clear();
             String line;
             while ((line = br.readLine()) != null) {
-                String[] arr = line.split(",");
-                if (arr.length >= 7) {
-                    _10Member m = new _10Member(
-                            Integer.parseInt(arr[0]), arr[1], arr[2], arr[3], arr[4],
-                            Integer.parseInt(arr[5]), arr[6]);
-                    memberList.add(m);
-                    nextId = Math.max(nextId, m.getId() + 1);
-                }
+                if (line.trim().isEmpty())
+                    continue;
+                String[] arr = line.split(",", -1);
+                int id = colIdx.containsKey("id") && !arr[colIdx.get("id")].isEmpty()
+                        ? Integer.parseInt(arr[colIdx.get("id")])
+                        : nextId++;
+                String name = arr[colIdx.getOrDefault("name", -1)];
+                String email = arr[colIdx.getOrDefault("email", -1)];
+                String password = arr[colIdx.getOrDefault("password", -1)];
+                String regDate = colIdx.containsKey("regdate") ? arr[colIdx.get("regdate")] : "";
+                int huntCount = colIdx.containsKey("huntcount") && !arr[colIdx.get("huntcount")].isEmpty()
+                        ? Integer.parseInt(arr[colIdx.get("huntcount")])
+                        : 0;
+                String grade = colIdx.containsKey("grade") ? arr[colIdx.get("grade")] : "";
+                memberList.add(new _10Member(id, name, email, password, regDate, huntCount, grade));
+                nextId = Math.max(nextId, id + 1);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "SQL 파일 로드 실패: " + e.getMessage());
+            System.err.println("[DAO] CSV 파일 로드 오류: " + e.getMessage());
         }
     }
+
+    public void clearAll() {
+    memberList.clear();
+}
 }
 
 // --- 클래스 다이어그램 ---
