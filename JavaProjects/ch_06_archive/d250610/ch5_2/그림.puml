@@ -1,51 +1,69 @@
 @startuml
-package d250610.ch5_2 {
-    abstract class Animal_Ex1 {
-        # name : String
-        # age : int
-        + Animal_Ex1()
-        + Animal_Ex1(name : String)
-        + showInfo() : void
-        {abstract} # sound() : void
-    }
-
-    interface Moveable_Ex1 {
-        + move() : void
-    }
-
-    interface Outable_Ex1 {
-        + out() : void
-    }
-
-    class Dog_Ex1 extends Animal_Ex1 {
-        + Dog_Ex1()
-        + Dog_Ex1(name : String)
-        + showInfo() : void
-        # sound() : void
-    }
-
-    class Cat_Ex1 extends Animal_Ex1 implements Moveable_Ex1, Outable_Ex1 {
-        + Cat_Ex1()
-        + Cat_Ex1(name : String, favoriteFood : String)
-        + showInfo() : void
-        # sound() : void
-        + move() : void
-        + out() : void
-        + favoriteFood : String
-    }
-
-    class Fish_Ex1 extends Animal_Ex1 {
-        + Fish_Ex1()
-        + Fish_Ex1(name : String)
-        + showInfo() : void
-        # sound() : void
-    }
+entity "User" as user {
+  * user_id : int <<PK>>
+  username : varchar
+  email : varchar
+  password : varchar
+  created_at : datetime
 }
 
-d250610.ch5_2.Dog_Ex1 --|> d250610.ch5_2.Animal_Ex1
-d250610.ch5_2.Cat_Ex1 --|> d250610.ch5_2.Animal_Ex1
-d250610.ch5_2.Fish_Ex1 --|> d250610.ch5_2.Animal_Ex1
-d250610.ch5_2.Cat_Ex1 ..|> d250610.ch5_2.Moveable_Ex1
-d250610.ch5_2.Cat_Ex1 ..|> d250610.ch5_2.Outable_Ex1
+entity "Profile" as profile {
+  * profile_id : int <<PK>>
+  user_id : int <<FK>>
+  nickname : varchar
+  bio : varchar
+  avatar_url : varchar
+}
+
+entity "Post" as post {
+  * post_id : int <<PK>>
+  user_id : int <<FK>>
+  title : varchar
+  content : text
+  created_at : datetime
+}
+
+entity "Comment" as comment {
+  * comment_id : int <<PK>>
+  post_id : int <<FK>>
+  user_id : int <<FK>>
+  content : text
+  created_at : datetime
+}
+
+entity "Tag" as tag {
+  * tag_id : int <<PK>>
+  name : varchar
+}
+
+entity "PostTag" as post_tag {
+  * post_id : int <<FK>>
+  * tag_id : int <<FK>>
+}
+
+entity "Friendship" as friendship {
+  * user_id : int <<FK>>
+  * friend_id : int <<FK>>
+  status : varchar
+  created_at : datetime
+}
+
+user ||--o{ profile : "has"
+user ||--o{ post : "writes"
+user ||--o{ comment : "writes"
+post ||--o{ comment : "has"
+post ||--o{ post_tag : "tagged"
+tag ||--o{ post_tag : "tagged"
+user ||--o{ friendship : "friends"
+user ||--o{ friendship : "friends"
+
+profile }|..|| user : "belongs to"
+post }|..|| user : "belongs to"
+comment }|..|| user : "written by"
+comment }|..|| post : "on"
+post_tag }|..|| post : "for"
+post_tag }|..|| tag : "for"
+friendship }|..|| user : "user"
+friendship }|..|| user : "friend"
 
 @enduml

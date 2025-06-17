@@ -4,6 +4,8 @@ package ch_05_experiments.random_playground.Test001_25050612;
 
 import java.io.*;
 import java.util.ArrayList; // ArrayList를 사용하기 위해 import
+import java.util.HashMap;
+import java.util.Map;
 
 // 파일 이름 상수: 회원 정보가 저장될 텍스트 파일의 이름입니다.
 
@@ -42,34 +44,54 @@ public class MemberService { // public으로 선언하여 다른 파일(SignUp.j
     // 파일이 없으면 새로 생성하는 기능도 포함합니다.
     // **핵심: 파일 입출력 로직이 이제 MemberService의 책임이 됩니다.**
     private void loadMembersFromFile() {
-        members.clear(); // 기존 `members` 리스트 비우기 (데이터 중복 로드 방지)
-        File file = new File(FILE_NAME); // 파일 객체 생성
+        members.clear();
+        File file = new File(FILE_NAME);
 
-        // 파일이 존재하지 않으면 새로 생성 시도
         if (!file.exists()) {
             try {
                 if (file.createNewFile()) {
                     System.out.println("[MemberService] 새로운 members.txt 파일이 생성되었습니다.");
                 }
             } catch (IOException e) {
-                // MemberService는 GUI가 없으므로 JOptionPane 대신 콘솔에 출력 (또는 예외를 다시 던질 수 있음)
                 System.err.println("[MemberService] 파일 생성 오류: " + e.getMessage());
                 return;
             }
         }
 
-        // 파일에서 데이터 읽기 (UTF-8 인코딩 명시)
-        try (BufferedReader br = new BufferedReader(
-                new InputStreamReader(
-                        new FileInputStream(FILE_NAME), "UTF-8"))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
+            String headerLine = br.readLine();
+            if (headerLine == null)
+                return; // 파일이 비어있으면 종료
+
+            String[] headers = headerLine.split(",");
+            Map<String, Integer> colIdx = new HashMap<>();
+            for (int i = 0; i < headers.length; i++) {
+                colIdx.put(headers[i].trim().toLowerCase(), i);
+            }
+
             String line;
             while ((line = br.readLine()) != null) {
-                Member member = Member.fromCSV(line); // Member 클래스의 정적 메서드 사용
-                if (member != null) {
-                    members.add(member);
-                }
+                if (line.trim().isEmpty())
+                    continue;
+                String[] arr = line.split(",", -1);
+
+                // 컬럼명에 따라 값 추출 (없으면 기본값)
+                String name = arr[colIdx.getOrDefault("name", -1)];
+                String email = arr[colIdx.getOrDefault("email", -1)];
+                String password = arr[colIdx.getOrDefault("password", -1)];
+                String regDate = colIdx.containsKey("regdate") ? arr[colIdx.get("regdate")] : "";
+                int huntCount = colIdx.containsKey("huntcount") && !arr[colIdx.get("huntcount")].isEmpty()
+                        ? Integer.parseInt(arr[colIdx.get("huntcount")])
+                        : 0;
+                String grade = colIdx.containsKey("grade") ? arr[colIdx.get("grade")] : "";
+                // id는 선택적으로 처리
+                int id = colIdx.containsKey("id") && !arr[colIdx.get("id")].isEmpty()
+                        ? Integer.parseInt(arr[colIdx.get("id")])
+                        : members.size() + 1;
+
+                members.add(new Member(name, email, password, regDate, huntCount, grade, id));
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("[MemberService] 파일 읽기 오류: " + e.getMessage());
         }
     }

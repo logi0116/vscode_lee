@@ -1,0 +1,25 @@
+@startuml
+package "Pre-Refactoring Structure" {
+    class OldMember {
+        - String name
+        - String password
+        - String email
+        + OldMember(String name, String password, String email)
+        // ... getters/setters
+    }
+
+    class SignupFrame_Old {
+        - JTextField nameField
+        - JPasswordField passwordField
+        - JTextField emailField
+        + SignupFrame_Old()
+        + void initGUI()
+        + void registerButtonClicked() // 이 메소드에서 회원 정보 처리
+        - void addMember(OldMember member) // 아마도 직접 처리
+        // ... DB 연결/쿼리 로직이 여기에 섞여 있을 가능성
+    }
+
+    // SignupFrame_Old 가 OldMember 객체를 생성하거나 사용
+    SignupFrame_Old .up.> OldMember : uses
+}
+@enduml
